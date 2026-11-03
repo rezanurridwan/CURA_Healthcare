@@ -19,27 +19,27 @@ This project for automation testing using playwright for CURA Health Service and
 # Structur Folder Project
 healthcura
 ├── locators/
-│   └── makeAppointmentLocators.js  
-|   └── loginlogout.js  
+│   └── makeAppointmentLocators.js
+|   └── loginlogout.js
 ├── pages/
-│   └── loginpage.js  
-│   └── logoutpage.js  
-│   └── makeappoinmentpage.js          
+│   └── loginpage.js
+│   └── logoutpage.js
+│   └── makeappoinmentpage.js
 ├── data/
 │   └── makeappoinment.csv
-│   └── user.csv        
+│   └── user.csv
 ├── tests/
 │   └── login.spec.js
 │   └── logout.spec.js
-│   └── makeappointment.spec.js  
+│   └── makeappointment.spec.js
 ├── screenshoots/
 │   └── login
 │   └── logout
-│   └── make-appointment       
-├── playwright.config.js  
+│   └── make-appointment
+├── playwright.config.js
 ├── package-lock.json
-├── package.json            
-└── README.md                      
+├── package.json
+└── README.md      
 
 # Execute Syntax
     1. Headless
