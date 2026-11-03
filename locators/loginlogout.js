@@ -6,8 +6,7 @@ const locators = {
         errorMessage: '.lead.text-danger'
     },
     logout: {
-        logoutButton: '#logout-button',
-        confirmationMessage: '.confirmation-message'
+        btnLogout: '#menu-toggle'
     }
 };
 
