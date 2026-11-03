@@ -13,22 +13,67 @@ const users = parse(fs.readFileSync(csvPath, "utf8"), {
   trim: true,
 });
 
-test("Login with valid credentials", async ({ page }) => {
+// TCLogin01	User entering login page url
+test("TCLogin01	User entering login page url", async ({ page }) => {
+  const login = new loginPage(page);
+
+  await login.open();
+  await login.takeScreenshot("TCLogin01-login-page");
+
+  await expect(page).toHaveURL(/#login$/);
+  await expect(page.getByRole("heading", { name: "Login" })).toBeVisible();
+});
+
+// TCLogin02	User input valid username and password
+test("TCLogin02	User input valid username and password", async ({ page }) => {
   const user = users[0];
   expect(user, "The credentials CSV must contain at least one user").toBeTruthy();
 
   const login = new loginPage(page);
 
   await login.open();
-  await login.takeScreenshot("01-login-page");
+  await login.takeScreenshot("TCLogin02-login-page");
 
   await login.inputUsername(user.username);
   await login.inputPassword(user.password);
-  await login.takeScreenshot("02-credentials-filled");
+  await login.takeScreenshot("TCLogin02-credentials-filled");
 
   await login.loginButton();
   await expect(page).toHaveURL(/#appointment$/);
   await expect(page.getByRole("heading", { name: "Make Appointment" })).toBeVisible();
 
-  await login.takeScreenshot("03-after-login");
+  await login.takeScreenshot("TCLogin02-after-login");
 });
+
+// TCLogin03	User input invalid username and password valid
+test("TCLogin03	User input invalid username and password valid", async ({ page }) => {
+  const user = users[1];
+  expect(user, "The credentials CSV must contain at least two users").toBeTruthy();
+
+  const login = new loginPage(page);
+
+  await login.open();
+  await login.takeScreenshot("TCLogin03-login-page");
+
+  await login.inputUsername(user.username);
+  await login.inputPassword(user.password);
+  await login.takeScreenshot("TCLogin03-credentials-filled");
+  await login.loginButton();
+
+  await expect(page.getByText("Login failed! Please ensure the username and password are valid.")).toBeVisible();
+
+  await login.takeScreenshot("TCLogin03-after-login");
+});
+
+// TCLogin04	User input valid username and password invalid
+// TCLogin05	User input empty username and password valid
+// TCLogin06	User input valid username and empty password
+// TCLogin07	User input username and password empty
+// TCLogin08	User input username with number
+// TCLogin09	User input username with sql query
+// TCLogin10	User input username with script code
+// TCLogin11	User input username with symbol
+// TCLogin12	User input password with number
+// TCLogin13	User input password with sql query
+// TCLogin14	User input password with script code
+// // TCLogin15	User input password with symbol
