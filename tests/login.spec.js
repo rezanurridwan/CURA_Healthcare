@@ -1,19 +1,34 @@
-// @ts-check
-import { test, expect } from '@playwright/test';
+const { test, expect } = require("@playwright/test");
+const fs = require("node:fs");
+const path = require("node:path");
+const { parse } = require("csv-parse/sync");
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+const loginPage = require("../pages/loginpage");
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+const csvPath = path.join(__dirname, "../data/user.csv");
+
+const users = parse(fs.readFileSync(csvPath, "utf8"), {
+  columns: true,
+  skip_empty_lines: true,
+  trim: true,
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test("Login with valid credentials", async ({ page }) => {
+  const user = users[0];
+  expect(user, "The credentials CSV must contain at least one user").toBeTruthy();
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  const login = new loginPage(page);
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  await login.open();
+  await login.takeScreenshot("01-login-page");
+
+  await login.inputUsername(user.username);
+  await login.inputPassword(user.password);
+  await login.takeScreenshot("02-credentials-filled");
+
+  await login.loginButton();
+  await expect(page).toHaveURL(/#appointment$/);
+  await expect(page.getByRole("heading", { name: "Make Appointment" })).toBeVisible();
+
+  await login.takeScreenshot("03-after-login");
 });

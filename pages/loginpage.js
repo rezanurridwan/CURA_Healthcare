@@ -10,13 +10,13 @@ class loginPage {
     await this.page.goto("https://katalon-demo-cura.herokuapp.com/profile.php#login");
   }
   async inputUsername(username) {
-    await this.page.locator(locators.usernameInput).fill(username);
+    await this.page.locator(locators.login.usernameInput).fill(username);
   }
   async inputPassword(password) {
-    await this.page.locator(locators.passwordInput).fill(password);
+    await this.page.locator(locators.login.passwordInput).fill(password);
   }
   async loginButton() {
-    await this.page.locator(locators.loginButton).click();
+    await this.page.locator(locators.login.loginButton).click();
   }
 
   async takeScreenshot(fileName) {
