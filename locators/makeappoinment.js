@@ -1,5 +1,6 @@
 const locators = {
     makeAppointment: {
+        btnMakeAppointment: '#btn-make-appointment',
         facilityDropdown: '#combo_facility',
         hospitalReadmissionCheckbox: '#chk_hospotal_readmission',
         healthcareProgramRadio: 'input[name="programs"]',
