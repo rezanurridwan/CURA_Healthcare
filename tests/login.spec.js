@@ -124,6 +124,9 @@ test("TCLogin06	User input valid username and empty password", async ({ page }) 
 });
 // TCLogin07	User input username and password empty
 test("TCLogin07	User input username and password empty", async ({ page }) => {
+  const user = users[5];
+  expect(user, "The credentials CSV must contain at least six users").toBeTruthy();
+
   const login = new loginPage(page);
 
   await login.open();
@@ -139,10 +142,93 @@ test("TCLogin07	User input username and password empty", async ({ page }) => {
   await login.takeScreenshot("TCLogin07-after-login");
 });
 // TCLogin08	User input username with number
+test("TCLogin08	User input username with number", async ({ page }) => {
+  const login = new loginPage(page);
+
+  await login.open();
+  await login.takeScreenshot("TCLogin08-login-page");
+
+  const user = users[6];
+  expect(user, "The credentials CSV must contain at least seven users").toBeTruthy();
+
+  await login.inputUsername(user.username);
+  await login.inputPassword(user.password);
+  await login.takeScreenshot("TCLogin08-credentials-filled");
+  await login.loginButton();
+
+  await expect(page.getByText("Login failed! Please ensure the username and password are valid.")).toBeVisible();
+
+  await login.takeScreenshot("TCLogin08-after-login");
+});
 // TCLogin09	User input username with sql query
-// TCLogin10	User input username with script code
-// TCLogin11	User input username with symbol
-// TCLogin12	User input password with number
-// TCLogin13	User input password with sql query
-// TCLogin14	User input password with script code
-// // TCLogin15	User input password with symbol
+test("TCLogin09	User input username with sql query", async ({ page }) => {
+  const login = new loginPage(page);
+
+  await login.open();
+  await login.takeScreenshot("TCLogin09-login-page");
+
+  const user = users[7];
+
+  await login.inputUsername(user.username);
+  await login.inputPassword(user.password);
+  await login.takeScreenshot("TCLogin09-credentials-filled");
+  await login.loginButton();
+
+  await expect(page.getByText("Login failed! Please ensure the username and password are valid.")).toBeVisible();
+
+  await login.takeScreenshot("TCLogin09-after-login");
+});
+
+// TCLogin10	User input username with symbol
+test("TCLogin10	User input username with symbol", async ({ page }) => {
+  const login = new loginPage(page);
+
+  await login.open();
+  await login.takeScreenshot("TCLogin10-login-page");
+
+  const user = users[8];
+
+  await login.inputUsername(user.username);
+  await login.inputPassword(user.password);
+  await login.takeScreenshot("TCLogin10-credentials-filled");
+  await login.loginButton();
+  
+  await expect(page.getByText("Login failed! Please ensure the username and password are valid.")).toBeVisible();   
+  await login.takeScreenshot("TCLogin10-after-login");
+});
+// TCLogin11	User input password with number
+test("TCLogin11	User input password with number", async ({ page }) => {
+  const login = new loginPage(page);
+
+  await login.open();
+  await login.takeScreenshot("TCLogin11-login-page");
+
+  const user = users[9];
+
+  await login.inputUsername(user.username);
+  await login.inputPassword(user.password);
+  await login.takeScreenshot("TCLogin11-credentials-filled");
+  await login.loginButton();
+
+  await expect(page.getByText("Login failed! Please ensure the username and password are valid.")).toBeVisible();
+
+  await login.takeScreenshot("TCLogin11-after-login");
+});
+// TCLogin12	User input password with sql query
+test("TCLogin12	User input password with sql query", async ({ page }) => {
+  const login = new loginPage(page);
+
+  await login.open();
+  await login.takeScreenshot("TCLogin12-login-page");
+
+  const user = users[10];
+
+  await login.inputUsername(user.username);
+  await login.inputPassword(user.password);
+  await login.takeScreenshot("TCLogin12-credentials-filled");
+  await login.loginButton();
+
+  await expect(page.getByText("Login failed! Please ensure the username and password are valid.")).toBeVisible();
+
+  await login.takeScreenshot("TCLogin12-after-login");
+});

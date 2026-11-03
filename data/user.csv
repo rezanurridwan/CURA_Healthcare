@@ -4,3 +4,9 @@ Jane Smith,ThisIsNotAPassword
 John Doe,password123
 ,ThisIsNotAPassword
 John Doe,
+123456,ThisIsNotAPassword
+SELECT * FROM healthcare.bdo.login,ThisIsNotAPassword
+!@#$%%^,ThisIsNotAPassword
+John Doe,123124124
+John Doe,SELECT*FROM healthcarelogin
+John Doe,!@#$!%!#
